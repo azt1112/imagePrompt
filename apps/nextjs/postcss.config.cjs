@@ -1,1 +1,1 @@
-module.exports = require("@saasfly/tailwind-config/postcss");
+module.exports = require("../../tooling/tailwind-config/postcss");
