@@ -10,7 +10,8 @@
     "./transformer": "./src/transformer.ts",
     "./resend": "./src/email.ts",
     "./MagicLinkEmail": "./src/emails/magic-link-email.tsx",
-    "./subscriptions": "./src/subscriptions.ts"
+    "./subscriptions": "./src/subscriptions.ts",
+    "./src/trpc": "./src/trpc.ts"
   },
   "typesVersions": {
     "*": {
@@ -20,6 +21,7 @@
     }
   },
   "scripts": {
+    "build": "tsc --noEmit",
     "clean": "rm -rf .turbo node_modules",
     "format": "prettier --check '**/*.{ts,mjs}' ",
     "typecheck": "tsc --noEmit"
@@ -27,6 +29,7 @@
   "dependencies": {
     "@saasfly/auth": "workspace:*",
     "@saasfly/db": "workspace:*",
+    "@saasfly/stripe": "workspace:*",
     "@trpc/client": "10.44.1",
     "@trpc/server": "10.44.1",
     "@t3-oss/env-nextjs": "0.8.0",

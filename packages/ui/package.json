@@ -15,6 +15,7 @@
     "./animated-tooltip": "./src/animated-tooltip.tsx",
     "./avatar": "./src/avatar.tsx",
     "./background-lines": "./src/background-lines.tsx",
+    "./badge": "./src/badge.tsx",
     "./button": "./src/button.tsx",
     "./calendar": "./src/calendar.tsx",
     "./callout": "./src/callout.tsx",

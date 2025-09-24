@@ -1,57 +1,51 @@
-import React from "react";
-import type { Metadata } from "next";
-import Image from "next/image";
+import { SignIn } from "@clerk/nextjs";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
-import { cn } from "@saasfly/ui";
-import { buttonVariants } from "@saasfly/ui/button";
-import * as Icons from "@saasfly/ui/icons";
-
-import { UserClerkAuthForm } from "~/components/user-clerk-auth-form";
-import type { Locale } from "~/config/i18n-config";
+import { siteConfig } from "~/config/site";
 import { getDictionary } from "~/lib/get-dictionary";
+import { LangProps } from "~/types";
 
-export const metadata: Metadata = {
-  title: "Login",
-  description: "Login to your account",
-};
+export async function generateMetadata({ params }: LangProps) {
+  const dict = await getDictionary(params.lang);
 
-export default async function LoginPage({
-  params: { lang },
-}: {
-  params: {
-    lang: Locale;
+  return {
+    title: dict.login.welcome_back,
+    description: dict.login.signin_title,
   };
-}) {
-  const dict = await getDictionary(lang);
+}
+
+export default async function LoginPage({ params }: LangProps) {
+  const dict = await getDictionary(params.lang);
+
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <Link
-        href={`/${lang}`}
-        className={cn(
-          buttonVariants({ variant: "ghost" }),
-          "absolute left-4 top-4 md:left-8 md:top-8",
-        )}
+        href={`/${params.lang}`}
+        className="absolute left-4 top-4 md:left-8 md:top-8"
       >
-        <>
-          <Icons.ChevronLeft className="mr-2 h-4 w-4" />
-          {dict.login.back}
-        </>
-      </Link>
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
-        <div className="flex flex-col space-y-2 text-center">
-          <Image
-            src="/images/avatars/saasfly-logo.svg"
-            className="mx-auto"
-            width="64"
-            height="64"
-            alt=""
-          />
-          <h1 className="text-2xl font-semibold tracking-tight">
-            {dict.login.welcome_back}
-          </h1>
+        <div className="flex items-center space-x-2 text-sm">
+          <ChevronLeft className="h-4 w-4" />
+          <span>{dict.login.back}</span>
         </div>
-        <UserClerkAuthForm lang={lang} dict={dict.login} />
+      </Link>
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+        <div className="flex flex-col space-y-2 text-center">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {siteConfig.name}
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            {dict.login.welcome_back}
+          </p>
+        </div>
+        <div className="flex justify-center">
+          <SignIn 
+            routing="path"
+            path={`/${params.lang}/login-clerk`}
+            signUpUrl={`/${params.lang}/register-clerk`}
+            fallbackRedirectUrl={`/${params.lang}/dashboard`}
+          />
+        </div>
       </div>
     </div>
   );

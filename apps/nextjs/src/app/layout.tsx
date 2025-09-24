@@ -13,6 +13,7 @@ import { Toaster } from "@saasfly/ui/toaster";
 
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { ThemeProvider } from "~/components/theme-provider";
+import { TRPCProvider } from "~/components/trpc-provider";
 import { i18n } from "~/config/i18n-config";
 import { siteConfig } from "~/config/site";
 
@@ -78,7 +79,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      signInUrl="/login-clerk"
+      signUpUrl="/register"
+      fallbackRedirectUrl="/dashboard"
+    >
       <html lang="en" suppressHydrationWarning>
         <head />
         {/*<Suspense>*/}
@@ -96,7 +101,9 @@ export default function RootLayout({
             defaultTheme="dark"
             enableSystem={false}
           >
-            <NextDevtoolsProvider>{children}</NextDevtoolsProvider>
+            <TRPCProvider>
+              {children}
+            </TRPCProvider>
             <Analytics />
             <SpeedInsights />
             <Toaster />

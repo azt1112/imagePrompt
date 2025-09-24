@@ -3,6 +3,7 @@ import { customerRouter } from "./router/customer";
 import { helloRouter } from "./router/health_check";
 import { k8sRouter } from "./router/k8s";
 import { stripeRouter } from "./router/stripe";
+import { cozeRouter } from "./router/coze";
 import { createTRPCRouter } from "./trpc";
 
 export const edgeRouter = createTRPCRouter({
@@ -11,4 +12,5 @@ export const edgeRouter = createTRPCRouter({
   k8s: k8sRouter,
   auth: authRouter,
   customer: customerRouter,
+  coze: cozeRouter,
 });

@@ -10,8 +10,20 @@ import { RightsideMarketing } from "~/components/rightside-marketing";
 import { AnimatedTooltip } from "@saasfly/ui/animated-tooltip";
 import { BackgroundLines } from "@saasfly/ui/background-lines";
 import { Button } from "@saasfly/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@saasfly/ui/card";
+import { Badge } from "@saasfly/ui/badge";
 import { ColourfulText } from "@saasfly/ui/colorful-text";
 import * as Icons from "@saasfly/ui/icons";
+import { 
+  Wand2, 
+  Sparkles, 
+  Image as ImageIcon, 
+  Zap,
+  ArrowRight,
+  Star,
+  Users,
+  Palette
+} from "lucide-react";
 
 import type { Locale } from "~/config/i18n-config";
 import {VideoScroll} from "~/components/video-scroll";
@@ -68,70 +80,177 @@ export default async function IndexPage({
 
   return (
     <>
-      <section className="container">
-        <div className="grid grid-cols-1 gap-10 xl:grid-cols-2">
-          <div className="flex flex-col items-start h-full">
-            <BackgroundLines className="h-full">
-              <div className="flex flex-col pt-4 md:pt-36 lg:pt-36 xl:pt-36">
-                <div className="mt-20">
-                  <div
-                    className="mb-6 max-w-4xl text-left text-4xl font-semibold dark:text-zinc-100 md:text-5xl xl:text-5xl md:leading-[4rem] xl:leading-[4rem]">
-                    {dict.marketing.title || "Ship your apps to the world easier with "}
-                    <ColourfulText text="Saasfly"/>
-                  </div>
-                </div>
 
-                <div className="mt-4">
-                  <span className="text-neutral-500 dark:text-neutral-400 sm:text-lg">
-                    {dict.marketing.sub_title || "Your complete All-in-One solution for building SaaS services."}
-                  </span>
-                </div>
-
-                <div
-                  className="mb-4 mt-6 flex w-full flex-col justify-center space-y-4 sm:flex-row sm:justify-start sm:space-x-8 sm:space-y-0 z-10">
-                  <Link href="https://github.com/saasfly/saasfly" target="_blank">
-                    <Button
-                      className="bg-blue-600 hover:bg-blue-500 text-white rounded-full text-lg px-6 h-12 font-medium">
-                      {dict.marketing.get_started}
-                      <Icons.ArrowRight className="h-5 w-5"/>
-                    </Button>
-                  </Link>
-
-                  <CodeCopy/>
-                </div>
-
-                <div className="flex xl:flex-row flex-col items-center justify-start mt-4 w-full">
-                  <div className="flex">
-                    <AnimatedTooltip items={people}/>
-                  </div>
-                  <div className="flex flex-col items-center justify-start ml-8">
-                    <div className="w-[340px]">
-                      <span className="font-semibold">9 </span>
-                      <span className="text-neutral-500 dark:text-neutral-400">{dict.marketing.contributors.contributors_desc}</span>
-                    </div>
-                    <div className="w-[340px]">
-                      <span
-                        className="text-neutral-500 dark:text-neutral-400">{dict.marketing.contributors.developers_first}</span>
-                      <ColourfulText text="2000"/>
-                      <span
-                        className="text-neutral-500 dark:text-neutral-400">{dict.marketing.contributors.developers_second}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </BackgroundLines>
-          </div>
-
-          <div className="hidden h-full w-full xl:block bg-background">
-            <div className="flex flex-col pt-44">
-              <RightsideMarketing dict={dict.marketing.right_side}/>
+      {/* AI Image Tools Section */}
+      <section className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 py-20">
+        {/* Hero Section */}
+        <div className="container">
+          <div className="mx-auto max-w-4xl text-center">
+            <Badge variant="secondary" className="mb-6 bg-purple-100 text-purple-700">
+              AI Powered Image Tools
+            </Badge>
+            
+            <h1 className="mb-6 text-5xl font-bold tracking-tight text-gray-900 md:text-6xl">
+              Create Better AI Art
+              <br />
+              with{" "}
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Image Prompt
+              </span>
+            </h1>
+            
+            <p className="mb-8 text-xl text-gray-600 md:text-2xl">
+              Inspire ideas. Enhance image prompts. Create masterpieces
+            </p>
+            
+            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+              <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
+                <Link href={`/${lang}/image-to-prompt`} className="flex items-center">
+                  Try it now !
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg">
+                Tutorials
+              </Button>
             </div>
           </div>
         </div>
-      </section>
 
-      <section className="container mt-8 md:mt-[-180px] xl:mt-[-180px]">
-        <FeaturesGrid dict={dict.marketing.features_grid}/>
+        {/* Features Section */}
+        <div className="container px-4 py-16">
+          <div className="mx-auto max-w-6xl">
+            <h2 className="mb-12 text-center text-4xl font-bold text-gray-900">
+              AI Image Tools Suite
+            </h2>
+            
+            <div className="grid gap-8 md:grid-cols-3">
+              {/* AI Prompt Enhancer */}
+              <Link href={`/${lang}/image-to-prompt`}>
+                <Card className="group cursor-pointer transition-all hover:shadow-lg hover:-translate-y-1 h-full">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 group-hover:bg-blue-200 transition-colors">
+                      <Sparkles className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <CardTitle className="text-lg">AI Image to Prompt</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-center">
+                      Convert images into detailed, descriptive prompts for AI generation
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              {/* AI Describe Image */}
+              <Card className="group cursor-pointer transition-all hover:shadow-lg hover:-translate-y-1 h-full">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 group-hover:bg-green-200 transition-colors">
+                    <Wand2 className="h-8 w-8 text-green-600" />
+                  </div>
+                  <CardTitle className="text-lg">AI Describe Image</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-center">
+                    Let AI help you understand and describe any image in detail
+                  </CardDescription>
+                </CardContent>
+              </Card>
+
+              {/* AI Image Generator */}
+              <Card className="group cursor-pointer transition-all hover:shadow-lg hover:-translate-y-1 h-full">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100 group-hover:bg-orange-200 transition-colors">
+                    <Zap className="h-8 w-8 text-orange-600" />
+                  </div>
+                  <CardTitle className="text-lg">AI Image Generator</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-center">
+                    Transform your image prompts into stunning AI-powered image generation
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+
+        {/* Interest Links */}
+        <div className="container px-4 py-8">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-gray-600">
+              You may be interested in:{" "}
+              <a href="#" className="text-purple-600 hover:underline">
+                What is an Image Prompt?
+              </a>{" "}
+              <a href="#" className="text-purple-600 hover:underline">
+                How to Write Effective Image Prompt?
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* AI Tools Suite Section */}
+        <div className="container px-4 py-20 bg-gray-50 rounded-lg">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="mb-4 text-4xl font-bold text-gray-900">
+              AI Powered Image Prompt Tools
+            </h2>
+            <p className="mb-12 text-xl text-gray-600">
+              A complete suite of AI tools covering every aspect of your image creation journey
+            </p>
+            
+            <div className="grid gap-8 md:grid-cols-3">
+              <div className="flex flex-col items-center">
+                <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-100">
+                  <Star className="h-10 w-10 text-purple-600" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold">Premium Quality</h3>
+                <p className="text-gray-600">
+                  Professional-grade AI tools for creating stunning image prompts
+                </p>
+              </div>
+              
+              <div className="flex flex-col items-center">
+                <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-blue-100">
+                  <Users className="h-10 w-10 text-blue-600" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold">Community Driven</h3>
+                <p className="text-gray-600">
+                  Join thousands of creators sharing and improving their prompts
+                </p>
+              </div>
+              
+              <div className="flex flex-col items-center">
+                <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+                  <Palette className="h-10 w-10 text-green-600" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold">Creative Freedom</h3>
+                <p className="text-gray-600">
+                  Unlimited possibilities for your artistic vision and creativity
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="container px-4 py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="mb-6 text-4xl font-bold text-gray-900">
+              Ready to Create Amazing AI Art?
+            </h2>
+            <p className="mb-8 text-xl text-gray-600">
+              Start your creative journey today with our powerful AI image prompt tools
+            </p>
+            <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
+            <Link href={`/${lang}/image-to-prompt`} className="flex items-center">
+              Get Started Now
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          </div>
+        </div>
       </section>
 
       <section className="container pt-24">

@@ -1,10 +1,10 @@
 "use client";
 
+import { motion, stagger, useAnimate } from "framer-motion";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
-import { motion, stagger, useAnimate } from "framer-motion";
 
-import { cn } from "./utils/cn";
+import { cn } from "@saasfly/ui";
 
 const TextGenerateEffectImpl = ({
   words,

@@ -12,11 +12,14 @@ const noRedirectRoute = ["/api(.*)", "/trpc(.*)", "/admin"];
 
 export const isPublicRoute = createRouteMatcher([
   new RegExp("/(\\w{2}/)?signin(.*)"),
+  new RegExp("/(\\w{2}/)?login-clerk(.*)"), // Clerk login page
   new RegExp("/(\\w{2}/)?terms(.*)"),
   new RegExp("/(\\w{2}/)?privacy(.*)"),
   new RegExp("/(\\w{2}/)?docs(.*)"),
   new RegExp("/(\\w{2}/)?blog(.*)"),
   new RegExp("/(\\w{2}/)?pricing(.*)"),
+  new RegExp("/(\\w{2}/)?ai-image(.*)"), // AI image landing page
+  new RegExp("^/(\\w{2}/)?image-to-prompt.*"), // Image to prompt generator page
   new RegExp("^/\\w{2}$"), // root with locale
 ])
 
@@ -92,8 +95,20 @@ export const middleware = clerkMiddleware(async (auth, req: NextRequest) => {
   );
   const isAuthRoute = req.nextUrl.pathname.startsWith("/api/trpc/");
   const locale = getLocale(req);
-  if (isAuthRoute && isAuth) {
-    return NextResponse.next();
+  if (isAuthRoute) {
+    // 对于 tRPC 路由，如果用户已认证则允许通过
+    if (isAuth) {
+      return NextResponse.next();
+    }
+    // 对于未认证用户，检查是否是公共 API 路由
+    // 如果是 Coze API 相关的路由，允许通过（用于 image-to-prompt 功能）
+    if (req.nextUrl.pathname.includes("/coze.")) {
+      return NextResponse.next();
+    }
+    // 其他 tRPC 路由需要认证
+    return NextResponse.redirect(
+      new URL(`/${locale}/login-clerk?from=${encodeURIComponent(req.nextUrl.pathname + (req.nextUrl.search || ""))}`, req.url),
+    );
   }
   if (req.nextUrl.pathname.startsWith("/admin/dashboard")) {
     if (!isAuth || !isAdmin)

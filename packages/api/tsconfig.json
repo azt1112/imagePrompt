@@ -1,7 +1,13 @@
 {
-  "extends": "@saasfly/typescript-config/base.json",
+  "extends": "../../tooling/typescript-config/base.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+    "incremental": true,
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "baseUrl": ".",
+    "paths": {
+      "@saasfly/stripe": ["../stripe/src/index.ts"],
+      "@saasfly/stripe/*": ["../stripe/src/*"]
+    }
   },
   "include": [
     "*.ts",

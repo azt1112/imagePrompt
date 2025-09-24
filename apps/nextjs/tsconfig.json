@@ -6,7 +6,11 @@
       "~/*": ["./src/*"],
       "contentlayer/generated": ["./.contentlayer/generated"],
       "@saasfly/ui": ["../../packages/ui/src/index.ts"],
-      "@saasfly/ui/*": ["../../packages/ui/src/*"]
+      "@saasfly/ui/*": ["../../packages/ui/src/*"],
+      "@saasfly/api": ["../../packages/api/src/index.ts"],
+      "@saasfly/api/*": ["../../packages/api/src/*"],
+      "@saasfly/stripe": ["../../packages/stripe/src/index.ts"],
+      "@saasfly/stripe/*": ["../../packages/stripe/src/*"]
     },
     "plugins": [
       {

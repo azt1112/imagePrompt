@@ -9,7 +9,7 @@ export const helloRouter = createTRPCRouter({
         text: z.string(),
       }),
     )
-    .query((opts: { input: { text: string } }) => {
+    .query((opts) => {
       return {
         greeting: `hello ${opts.input.text}`,
       };
