@@ -52,9 +52,9 @@ export default function ImageToPromptPage() {
     });
   };
 
-  // tRPC mutations
-  const uploadFileMutation = trpc.coze.uploadFile.useMutation();
-  const generatePromptMutation = trpc.coze.generatePrompt.useMutation();
+  // tRPC mutations - 使用公共访问版本
+  const uploadFileMutation = trpc.coze.uploadFilePublic.useMutation();
+  const generatePromptMutation = trpc.coze.generatePromptPublic.useMutation();
 
   const handleGeneratePrompt = async () => {
     if (!selectedImage) {

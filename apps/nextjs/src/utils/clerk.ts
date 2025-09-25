@@ -11,6 +11,7 @@ const noNeedProcessRoute = [".*\\.png", ".*\\.jpg", ".*\\.opengraph-image.png"];
 const noRedirectRoute = ["/api(.*)", "/trpc(.*)", "/admin"];
 
 export const isPublicRoute = createRouteMatcher([
+  "/",
   new RegExp("/(\\w{2}/)?signin(.*)"),
   new RegExp("/(\\w{2}/)?login-clerk(.*)"), // Clerk login page
   new RegExp("/(\\w{2}/)?terms(.*)"),
@@ -21,6 +22,7 @@ export const isPublicRoute = createRouteMatcher([
   new RegExp("/(\\w{2}/)?ai-image(.*)"), // AI image landing page
   new RegExp("^/(\\w{2}/)?image-to-prompt.*"), // Image to prompt generator page
   new RegExp("^/\\w{2}$"), // root with locale
+  new RegExp("^/\\w{2}/$"), // root with locale and trailing slash
 ])
 
 export function getLocale(request: NextRequest): string | undefined {
