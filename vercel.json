@@ -1,17 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "apps/nextjs/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "apps/nextjs/$1"
-    }
-  ],
   "github": {
     "silent": true
   },
@@ -19,5 +7,5 @@
   "outputDirectory": "apps/nextjs/.next",
   "installCommand": "bun install",
   "framework": "nextjs",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD apps/nextjs"
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./apps/nextjs"
 }
