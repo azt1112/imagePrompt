@@ -1,6 +1,6 @@
 export const i18n = {
   defaultLocale: "zh",
-  locales: ["en", "zh", "ko", "ja"],
+  locales: ["en", "zh"],
 } as const;
 
 export type Locale = (typeof i18n)["locales"][number];
@@ -9,6 +9,4 @@ export type Locale = (typeof i18n)["locales"][number];
 export const localeMap = {
   en: "English",
   zh: "中文",
-  ko: "한국어",
-  ja: "日本語",
 } as const;
