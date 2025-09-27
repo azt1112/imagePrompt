@@ -11,6 +11,7 @@ import withMDX from "@next/mdx";
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  swcMinify: true,
   /** Enables hot reloading for local packages without a build step */
   transpilePackages: [
     "@saasfly/api",

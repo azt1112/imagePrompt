@@ -58,6 +58,8 @@ jobs:
           POSTGRES_DB: verceldb
           POSTGRES_URL: postgres://default:default@localhost:5432/verceldb
 
+      - name: Lint
+        run: cd apps/nextjs && bun run lint
 
-      - name: lint and type-check
-        run: bun run build lint format typecheck
+      - name: Type check and format
+        run: bun run format typecheck

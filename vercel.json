@@ -1,8 +1,21 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/nextjs/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "apps/nextjs/$1"
+    }
+  ],
   "github": {
     "silent": true
   },
-  "buildCommand": "turbo run build --filter=@saasfly/nextjs",
+  "buildCommand": "cd apps/nextjs && bun run build",
   "outputDirectory": "apps/nextjs/.next",
   "installCommand": "bun install",
   "framework": "nextjs",
