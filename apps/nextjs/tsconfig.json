@@ -1,0 +1,38 @@
+{
+  "extends": "../../tooling/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+      "contentlayer/generated": ["./.contentlayer/generated"],
+      "@saasfly/ui": ["../../packages/ui/src/index.ts"],
+      "@saasfly/ui/*": ["../../packages/ui/src/*"],
+      "@saasfly/api": ["../../packages/api/src/index.ts"],
+      "@saasfly/api/*": ["../../packages/api/src/*"],
+      "@saasfly/auth": ["../../packages/auth/index.ts"],
+      "@saasfly/auth/*": ["../../packages/auth/*"],
+      "@saasfly/db": ["../../packages/db/index.ts"],
+      "@saasfly/db/*": ["../../packages/db/*"],
+      "@saasfly/common": ["../../packages/common/index.ts"],
+      "@saasfly/common/*": ["../../packages/common/*"],
+      "@saasfly/stripe": ["../../packages/stripe/src/index.ts"],
+      "@saasfly/stripe/*": ["../../packages/stripe/src/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "*.ts",
+    "*.tsx",
+    "*.mjs",
+    "src",
+    "contentlayer.config.ts"
+  ],
+  "exclude": ["node_modules"]
+}

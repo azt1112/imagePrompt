@@ -1,0 +1,23 @@
+{
+  "extends": "../../tooling/typescript-config/base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "baseUrl": ".",
+    "paths": {
+      "@saasfly/auth": ["../auth/index.ts"],
+      "@saasfly/auth/*": ["../auth/*"],
+      "@saasfly/db": ["../db/index.ts"],
+      "@saasfly/db/*": ["../db/*"],
+      "@saasfly/stripe": ["../stripe/src/index.ts"],
+      "@saasfly/stripe/*": ["../stripe/src/*"]
+    }
+  },
+  "include": [
+    "*.ts",
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
