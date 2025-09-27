@@ -14,7 +14,7 @@ export const env = createEnv({
   server: {
     NEXTAUTH_URL: z.string(),
     NEXTAUTH_SECRET: z.string().min(1),
-    RESEND_API_KEY: z.string().min(1),
+    RESEND_API_KEY: z.string().min(1).optional(),
   },
   // Client side variables gets destructured here due to Next.js static analysis
   // Shared ones are also included here for good measure since the behavior has been inconsistent

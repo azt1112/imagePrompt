@@ -47,7 +47,7 @@ jobs:
         run: bun i
 
       - name: Build
-        run: bun run build
+        run: cd apps/nextjs && bun run build
         env:
           # The hostname used to communicate with the PostgreSQL service container
           POSTGRES_HOST: localhost
