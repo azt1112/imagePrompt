@@ -13,7 +13,7 @@ export const env = createEnv({
   },
   server: {
     NEXTAUTH_URL: z.string(),
-    NEXTAUTH_SECRET: z.string().min(1),
+    NEXTAUTH_SECRET: z.string().min(1).optional(),
     RESEND_API_KEY: z.string().min(1).optional(),
   },
   // Client side variables gets destructured here due to Next.js static analysis
