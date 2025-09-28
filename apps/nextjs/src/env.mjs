@@ -13,6 +13,8 @@ export const env = createEnv({
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
     COZE_API_TOKEN: z.string().min(1),
     COZE_WORKFLOW_ID: z.string().min(1),
+    // Clerk environment variables
+    CLERK_SECRET_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
@@ -24,6 +26,8 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_BUSINESS_YEARLY_PRICE_ID: z.string().optional(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
     NEXT_PUBLIC_POSTHOG_HOST: z.string().optional(),
+    // Clerk public key
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
   },
   runtimeEnv: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -34,6 +38,8 @@ export const env = createEnv({
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     COZE_API_TOKEN: process.env.COZE_API_TOKEN,
     COZE_WORKFLOW_ID: process.env.COZE_WORKFLOW_ID,
+    // Clerk environment variables
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_STRIPE_PRO_PRODUCT_ID:
       process.env.NEXT_PUBLIC_STRIPE_PRO_PRODUCT_ID,
@@ -49,5 +55,7 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_STRIPE_BUSINESS_YEARLY_PRICE_ID,
     NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
     NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+    // Clerk public key
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   },
 });

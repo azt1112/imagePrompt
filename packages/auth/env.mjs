@@ -15,9 +15,13 @@ export const env = createEnv({
     RESEND_FROM: z.string().min(1),
     ADMIN_EMAIL: z.string().optional(),
     IS_DEBUG: z.string().optional(),
+    // Clerk environment variables
+    CLERK_SECRET_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
+    // Clerk public key
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
   },
   runtimeEnv: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -31,5 +35,8 @@ export const env = createEnv({
     RESEND_FROM: process.env.RESEND_FROM,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
     IS_DEBUG: process.env.IS_DEBUG,
+    // Clerk environment variables
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   },
 });
