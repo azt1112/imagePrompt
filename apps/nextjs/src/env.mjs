@@ -13,8 +13,8 @@ export const env = createEnv({
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
     COZE_API_TOKEN: z.string().min(1),
     COZE_WORKFLOW_ID: z.string().min(1),
-    RESEND_API_KEY: z.string().min(1),
-    RESEND_FROM: z.string().min(1),
+    RESEND_API_KEY: z.string().optional(),
+    RESEND_FROM: z.string().optional(),
     ADMIN_EMAIL: z.string().optional(),
     IS_DEBUG: z.string().optional(),
     // Clerk environment variables

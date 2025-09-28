@@ -1,9 +1,9 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { env } from "./env.mjs";
 import { i18n } from "~/config/i18n-config";
-import { env } from "@saasfly/auth/env.mjs";
 
 const noNeedProcessRoute = [".*\\.png", ".*\\.jpg", ".*\\.opengraph-image.png"];
 const noRedirectRoute = ["/api(.*)", "/trpc(.*)", "/admin"];
