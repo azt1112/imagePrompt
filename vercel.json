@@ -2,11 +2,10 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "bun run build --filter=nextjs",
+  "buildCommand": "cd apps/nextjs; bun run build",
   "outputDirectory": "apps/nextjs/.next",
   "installCommand": "bun install",
   "framework": "nextjs",
-  "rootDirectory": "apps/nextjs",
   "rewrites": [
     {
       "source": "/api/(.*)",
