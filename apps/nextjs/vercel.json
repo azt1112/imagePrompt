@@ -6,11 +6,6 @@
   "outputDirectory": ".next",
   "installCommand": "cd ../.. && bun install --frozen-lockfile",
   "framework": "nextjs",
-  "functions": {
-    "app/**": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
