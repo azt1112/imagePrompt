@@ -2,9 +2,9 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "bun run build --filter=nextjs",
-  "outputDirectory": "apps/nextjs/.next",
-  "installCommand": "bun install --frozen-lockfile",
+  "buildCommand": "cd ../.. && bun run build --filter=nextjs",
+  "outputDirectory": ".next",
+  "installCommand": "cd ../.. && bun install --frozen-lockfile",
   "framework": "nextjs",
   "rewrites": [
     {
