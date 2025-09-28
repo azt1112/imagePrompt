@@ -149,6 +149,8 @@
         "@saasfly/eslint-config": "workspace:*",
         "@saasfly/prettier-config": "workspace:*",
         "@saasfly/typescript-config": "workspace:*",
+        "@types/react": "18.3.3",
+        "@types/react-dom": "18.3.0",
         "eslint": "8.57.0",
         "prettier": "3.2.5",
         "typescript": "5.4.5",
