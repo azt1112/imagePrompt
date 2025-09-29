@@ -1,6 +1,24 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
+// 扩展 NextAuth 类型
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      isAdmin?: boolean;
+    };
+  }
+  
+  interface JWT {
+    id?: string;
+    isAdmin?: boolean;
+  }
+}
+
 export const simpleAuthOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -38,7 +56,7 @@ export const simpleAuthOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (token) {
+      if (token && session.user) {
         session.user.id = token.id as string;
         // 添加访问令牌到会话中（如果需要）
         // session.accessToken = token.accessToken as string;
