@@ -1,13 +1,13 @@
 import { getServerSession, NextAuthOptions, User } from "next-auth";
-import { KyselyAdapter } from "@auth/kysely-adapter";
-import GitHubProvider from "next-auth/providers/github";
-import EmailProvider from "next-auth/providers/email";
+// import { KyselyAdapter } from "@auth/kysely-adapter";
+import GoogleProvider from "next-auth/providers/google";
+// import EmailProvider from "next-auth/providers/email";
 
-import { MagicLinkEmail, resend, siteConfig } from "@saasfly/common";
+// import { MagicLinkEmail, resend, siteConfig } from "@saasfly/common";
 
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 
-import { db } from "./db";
+// import { db } from "./db";
 import { env } from "./env.mjs";
 
 type UserId = string;
@@ -35,50 +35,25 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  adapter: KyselyAdapter(db),
+  // 暂时禁用数据库适配器，使用JWT策略
+  // adapter: KyselyAdapter(db),
 
   providers: [
-    GitHubProvider({
-      clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
-      httpOptions: { timeout: 15000 },
-    }),
-    EmailProvider({
-      sendVerificationRequest: async ({ identifier, url }) => {
-        const user = await db
-          .selectFrom("User")
-          .select(["name", "emailVerified"])
-          .where("email", "=", identifier)
-          .executeTakeFirst();
-        const userVerified = !!user?.emailVerified;
-        const authSubject = userVerified
-          ? `Sign-in link for ${(siteConfig as { name: string }).name}`
-          : "Activate your account";
-
-        try {
-          await resend.emails.send({
-            from: env.RESEND_FROM,
-            to: identifier,
-            subject: authSubject,
-            react: MagicLinkEmail({
-              firstName: user?.name ?? "",
-              actionUrl: url,
-              mailType: userVerified ? "login" : "register",
-              siteName: (siteConfig as { name: string }).name,
-            }),
-            // Set this to prevent Gmail from threading emails.
-            // More info: https://resend.com/changelog/custom-email-headers
-            headers: {
-              "X-Entity-Ref-ID": new Date().getTime() + "",
-            },
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      },
-    }),
+    ...(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
+      ? [
+          GoogleProvider({
+            clientId: env.GOOGLE_CLIENT_ID,
+            clientSecret: env.GOOGLE_CLIENT_SECRET,
+            httpOptions: { timeout: 15000 },
+          }),
+        ]
+      : []),
+    // 暂时禁用EmailProvider，因为它依赖数据库
+    // EmailProvider({
+    //   sendVerificationRequest: async ({ identifier, url }) => {
+    //     // ... email sending logic
+    //   },
+    // }),
   ],
   callbacks: {
     session({ token, session }) {
@@ -94,32 +69,19 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
-      const email = token?.email ?? "";
-      const dbUser = await db
-        .selectFrom("User")
-        .where("email", "=", email)
-        .selectAll()
-        .executeTakeFirst();
-      if (!dbUser) {
-        if (user) {
-          token.id = user?.id;
-        }
-        return token;
+      // 暂时简化JWT回调，避免数据库查询
+      if (user) {
+        token.id = user.id;
       }
+      
       let isAdmin = false;
-      if (env.ADMIN_EMAIL) {
+      if (env.ADMIN_EMAIL && token.email) {
         const adminEmails = env.ADMIN_EMAIL.split(",");
-        if (email) {
-          isAdmin = adminEmails.includes(email);
-        }
+        isAdmin = adminEmails.includes(token.email);
       }
-      return {
-        id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image,
-        isAdmin: isAdmin,
-      };
+      
+      token.isAdmin = isAdmin;
+      return token;
     },
   },
   debug: env.IS_DEBUG === "true",

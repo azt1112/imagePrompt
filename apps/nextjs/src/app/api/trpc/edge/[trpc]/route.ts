@@ -3,13 +3,16 @@ import {fetchRequestHandler} from "@trpc/server/adapters/fetch";
 
 import {createTRPCContext} from "@saasfly/api";
 import {edgeRouter} from "@saasfly/api/edge";
-import {getAuth} from "@clerk/nextjs/server";
+import { getServerSession } from "next-auth";
+import { simpleAuthOptions } from "@saasfly/auth/simple-nextauth";
 
 // export const runtime = "edge";
 const createContext = async (req: NextRequest) => {
+    const session = await getServerSession(simpleAuthOptions);
     return createTRPCContext({
         headers: req.headers,
-        auth: getAuth(req),
+        req: req,
+        auth: session,
     });
 };
 

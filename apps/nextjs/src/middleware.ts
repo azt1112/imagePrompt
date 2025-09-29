@@ -1,17 +1,19 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { getToken } from "next-auth/jwt";
 import { env } from "./env.mjs";
 import { i18n } from "~/config/i18n-config";
 
 const noNeedProcessRoute = [".*\\.png", ".*\\.jpg", ".*\\.opengraph-image.png"];
 const noRedirectRoute = ["/api(.*)", "/trpc(.*)", "/admin"];
 
-export const isPublicRoute = createRouteMatcher([
+// 公共路由，不需要认证
+const publicRoutes = [
   "/",
   new RegExp("/(\\w{2}/)?signin(.*)"),
-  new RegExp("/(\\w{2}/)?login-clerk(.*)"), // Clerk login page
+  new RegExp("/(\\w{2}/)?login(.*)"), // Login page
+  new RegExp("/(\\w{2}/)?register(.*)"), // Register page
   new RegExp("/(\\w{2}/)?terms(.*)"),
   new RegExp("/(\\w{2}/)?privacy(.*)"),
   new RegExp("/(\\w{2}/)?docs(.*)"),
@@ -21,7 +23,17 @@ export const isPublicRoute = createRouteMatcher([
   new RegExp("^/(\\w{2}/)?image-to-prompt.*"), // Image to prompt generator page
   new RegExp("^/\\w{2}$"), // root with locale
   new RegExp("^/\\w{2}/$"), // root with locale and trailing slash
-]);
+];
+
+function isPublicRoute(req: NextRequest): boolean {
+  const pathname = req.nextUrl.pathname;
+  return publicRoutes.some((route) => {
+    if (typeof route === 'string') {
+      return pathname === route;
+    }
+    return route.test(pathname);
+  });
+}
 
 function getLocale(request: NextRequest): string | undefined {
   const negotiatorHeaders: Record<string, string> = {};
@@ -41,13 +53,18 @@ function isNoNeedProcess(request: NextRequest): boolean {
   return noNeedProcessRoute.some((route) => new RegExp(route).test(pathname));
 }
 
-export default clerkMiddleware(async (auth, req: NextRequest) => {
+export default async function middleware(req: NextRequest) {
   if (isNoNeedProcess(req)) {
     return null;
   }
 
   const isWebhooksRoute = req.nextUrl.pathname.startsWith("/api/webhooks/");
   if (isWebhooksRoute) {
+    return NextResponse.next();
+  }
+
+  // Skip NextAuth API routes - let NextAuth handle them
+  if (req.nextUrl.pathname.startsWith("/api/auth/")) {
     return NextResponse.next();
   }
   
@@ -73,18 +90,17 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     return null;
   }
 
-  const { userId, sessionClaims } = await auth();
-
-  const isAuth = !!userId;
+  // Use NextAuth JWT token for authentication
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const isAuth = !!token;
   let isAdmin = false;
-  if (env.ADMIN_EMAIL) {
+  
+  if (env.ADMIN_EMAIL && token?.email) {
     const adminEmails = env.ADMIN_EMAIL.split(",");
-    if (sessionClaims?.user?.email) {
-      isAdmin = adminEmails.includes(sessionClaims?.user?.email);
-    }
+    isAdmin = adminEmails.includes(token.email);
   }
 
-  const isAuthPage = /^\/[a-zA-Z]{2,}\/(login|register|login-clerk)/.test(
+  const isAuthPage = /^\/[a-zA-Z]{2,}\/(login|register)/.test(
     req.nextUrl.pathname,
   );
   const isAuthRoute = req.nextUrl.pathname.startsWith("/api/trpc/");
@@ -98,7 +114,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.next();
     }
     return NextResponse.redirect(
-      new URL(`/${locale}/login-clerk?from=${encodeURIComponent(req.nextUrl.pathname + (req.nextUrl.search || ""))}`, req.url),
+      new URL(`/${locale}/login?from=${encodeURIComponent(req.nextUrl.pathname + (req.nextUrl.search || ""))}`, req.url),
     );
   }
   
@@ -121,10 +137,10 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       from += req.nextUrl.search;
     }
     return NextResponse.redirect(
-      new URL(`/${locale}/login-clerk?from=${encodeURIComponent(from)}`, req.url),
+      new URL(`/${locale}/login?from=${encodeURIComponent(from)}`, req.url),
     );
   }
-});
+}
 
 export const config = {
   matcher: [

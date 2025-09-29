@@ -28,8 +28,8 @@ export const SignInModal = ({ dict }: { dict: Record<string, string> }) => {
               alt=""
             />
           </a>
-          <h3 className="font-urban text-2xl font-bold">{dict.signup}</h3>
-          <p className="text-sm text-gray-500 dark:text-zinc-400">{dict.privacy}</p>
+          <h3 className="font-urban text-2xl font-bold">{dict?.signup || "注册"}</h3>
+          <p className="text-sm text-gray-500 dark:text-zinc-400">{dict?.privacy || "只有您的电子邮件和头像会被存储。"}</p>
         </div>
 
         <div className="flex flex-col space-y-4 px-4 py-8 md:px-16">
@@ -38,7 +38,7 @@ export const SignInModal = ({ dict }: { dict: Record<string, string> }) => {
             disabled={signInClicked}
             onClick={() => {
               setSignInClicked(true);
-              signIn("github", { redirect: false })
+              signIn("google", { redirect: false })
                 .then(() =>
                   setTimeout(() => {
                     signInModal.onClose();
@@ -48,13 +48,14 @@ export const SignInModal = ({ dict }: { dict: Record<string, string> }) => {
                   console.error("signUp failed:", error);
                 });
             }}
+            className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             {signInClicked ? (
               <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              <Icons.GitHub className="mr-2 h-4 w-4" />
+              <Icons.Google className="mr-2 h-4 w-4" />
             )}{" "}
-            {dict.signup_github}
+            {dict?.signup_google || "使用 Google 注册"}
           </Button>
         </div>
       </div>

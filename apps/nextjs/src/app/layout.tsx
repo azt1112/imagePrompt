@@ -1,12 +1,8 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import { Inter as FontSans } from "next/font/google";
-import localFont from "next/font/local";
-
-import "~/styles/globals.css";
-
-import { NextDevtoolsProvider } from "@next-devtools/core";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata, Viewport } from "next";
+import { Inter as FontSans } from "next/font/google";
+import localFont from "next/font/local";
 
 import { cn } from "@saasfly/ui";
 import { Toaster } from "@saasfly/ui/toaster";
@@ -14,8 +10,12 @@ import { Toaster } from "@saasfly/ui/toaster";
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { ThemeProvider } from "~/components/theme-provider";
 import { TRPCProvider } from "~/components/trpc-provider";
-import { i18n } from "~/config/i18n-config";
+import { ModalProvider } from "~/components/modal-provider";
+import { SessionProviderWrapper } from "~/components/session-provider";
 import { siteConfig } from "~/config/site";
+import { i18n } from "~/config/i18n-config";
+
+import "~/styles/globals.css";
 
 // import { Suspense } from "react";
 // import { PostHogPageview } from "~/config/providers";
@@ -79,38 +79,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-      signInUrl="/login-clerk"
-      signUpUrl="/register"
-      fallbackRedirectUrl="/dashboard"
-    >
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        {/*<Suspense>*/}
-        {/*  <PostHogPageview />*/}
-        {/*</Suspense>*/}
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable,
-            fontHeading.variable,
-          )}
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
-          >
-            <TRPCProvider>
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      {/*<Suspense>*/}
+      {/*  <PostHogPageview />*/}
+      {/*</Suspense>*/}
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable,
+          fontHeading.variable,
+        )}
+      >
+        <SessionProviderWrapper>
+          <TRPCProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ModalProvider />
               {children}
-            </TRPCProvider>
-            <Analytics />
-            <SpeedInsights />
-            <Toaster />
-            <TailwindIndicator />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+              <TailwindIndicator />
+              <Toaster />
+            </ThemeProvider>
+          </TRPCProvider>
+        </SessionProviderWrapper>
+      </body>
+    </html>
   );
 }

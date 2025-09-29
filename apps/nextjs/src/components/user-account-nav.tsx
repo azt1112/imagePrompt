@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { User } from "@saasfly/auth";
-import { useClerk } from "@clerk/nextjs";
+import { signOut } from "next-auth/react";
 
 import {
   DropdownMenu,
@@ -27,7 +27,6 @@ export function UserAccountNav({
   params: { lang },
   dict,
 }: UserAccountNavProps) {
-  const { signOut } = useClerk();
 
   return (
     <DropdownMenu>
@@ -63,7 +62,10 @@ export function UserAccountNav({
           className="cursor-pointer"
           onSelect={(event) => {
             event.preventDefault();
-            signOut({ redirectUrl: `/${lang}/login-clerk` })
+            signOut({ 
+              callbackUrl: `/${lang}/login`,
+              redirect: true 
+            })
               .catch((error) => {
                 console.error("Error during sign out:", error);
               })

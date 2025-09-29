@@ -2,6 +2,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, procedure } from "../trpc";
 import { env } from "../../../../apps/nextjs/src/env.mjs";
 
+// 根据官方文档，使用正确的 API 端点
 const COZE_API_BASE_URL = "https://api.coze.cn";
 
 // 文件上传接口
@@ -40,7 +41,11 @@ export const cozeRouter = createTRPCRouter({
         console.log('- Authorization: Bearer [TOKEN]');
         console.log('- Content-Type: multipart/form-data (auto-set by FormData)');
 
-        const response = await fetch(`${COZE_API_BASE_URL}/v1/files/upload`, {
+        // 使用正确的文件上传端点 - 根据官方SDK示例
+        const uploadUrl = `${COZE_API_BASE_URL}/v1/files/upload`;
+        console.log('Upload URL:', uploadUrl);
+
+        const response = await fetch(uploadUrl, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${env.COZE_API_TOKEN}`,

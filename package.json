@@ -36,7 +36,6 @@
   ],
   "packageManager": "bun@1.2.22",
   "dependencies": {
-    "@clerk/nextjs": "^6.20.0",
     "@types/pg": "^8.15.5",
     "pg": "^8.16.3"
   }

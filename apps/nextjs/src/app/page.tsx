@@ -70,43 +70,7 @@ const people = [
 ];
 
 export default async function RootPage() {
-  // 使用默认语言获取字典
-  const dict = await getDictionary(i18n.defaultLocale);
-
-  return (
-    <div className="flex min-h-screen flex-col">
-      <main className="flex-1">
-        <BackgroundLines className="flex items-center justify-center w-full flex-col px-4">
-          <div className="container relative">
-            <section className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
-              <Badge variant="outline" className="mb-4">
-                {dict.marketing.badge}
-              </Badge>
-              <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]">
-                <ColourfulText text={dict.marketing.title} />
-              </h1>
-              <span className="max-w-[750px] text-center text-lg text-muted-foreground sm:text-xl">
-                {dict.marketing.subtitle}
-              </span>
-              <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-10">
-                <Button asChild>
-                  <Link href="/zh/dashboard">
-                    {dict.marketing.getStarted}
-                  </Link>
-                </Button>
-                <Button variant="outline" asChild>
-                  <Link href="/zh/docs">
-                    {dict.marketing.learnMore}
-                  </Link>
-                </Button>
-              </div>
-              <div className="flex flex-row items-center justify-center mb-10 w-full">
-                <AnimatedTooltip items={people} />
-              </div>
-            </section>
-          </div>
-        </BackgroundLines>
-      </main>
-    </div>
-  );
+  // 重定向到默认语言页面
+  const { redirect } = await import("next/navigation");
+  redirect(`/${i18n.defaultLocale}`);
 }

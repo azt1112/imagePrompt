@@ -655,9 +655,12 @@ export default function ImageToPromptPage() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">Free Image to Prompt Generator</h1>
-            <p className="text-purple-100">
-              Convert Image to Prompt to generate your own image
+            <h1 className="text-4xl font-bold text-white mb-4">Free Image to Prompt Generator</h1>
+            <p className="text-xl text-purple-100 mb-2">
+              Transform Any Image into Perfect AI Prompts Instantly
+            </p>
+            <p className="text-purple-200">
+              Our advanced image to prompt generator analyzes your images and creates detailed, accurate prompts for AI art generation. Perfect for Midjourney, Stable Diffusion, and other AI image tools.
             </p>
           </div>
 
@@ -673,7 +676,7 @@ export default function ImageToPromptPage() {
                 }`}
               >
                 <ImageIcon className="w-4 h-4" />
-                Image to Prompt
+                Image to Prompt Generator
               </button>
               <button
                 onClick={() => setActiveTab('text')}
@@ -693,9 +696,12 @@ export default function ImageToPromptPage() {
             <CardContent className="p-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left Column - Upload */}
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold mb-4">Upload Image</h3>
+                <div className="flex flex-col h-full">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold mb-4">Upload Your Image</h3>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Upload any image to generate detailed AI prompts. Our image prompt generator supports JPG, PNG, WEBP formats.
+                    </p>
                     <div className="flex items-center justify-center w-full">
                       <Label
                         htmlFor="image-upload"
@@ -727,7 +733,7 @@ export default function ImageToPromptPage() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="mt-6">
                     <Label className="text-sm font-medium mb-2 block">Input Image URL</Label>
                     <Input 
                       placeholder="https://example.com/image.jpg" 
@@ -737,9 +743,12 @@ export default function ImageToPromptPage() {
                 </div>
 
                 {/* Right Column - Preview */}
-                <div className="space-y-6">
-                  <div>
+                <div className="flex flex-col h-full">
+                  <div className="flex-1">
                     <h3 className="text-lg font-semibold mb-4">Image Preview</h3>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Your uploaded image will be displayed here for preview before generating AI prompts.
+                    </p>
                     <div className="w-full h-64 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 flex items-center justify-center">
                       {imagePreview ? (
                         <img
@@ -755,12 +764,20 @@ export default function ImageToPromptPage() {
                       )}
                     </div>
                   </div>
+                  
+                  {/* 添加一个占位区域以保持对齐 */}
+                  <div className="mt-6 h-10 flex items-center">
+                    <p className="text-sm text-gray-500">Preview will update automatically</p>
+                  </div>
                 </div>
               </div>
 
               {/* AI Model Selection */}
               <div className="mt-8">
-                <h3 className="text-lg font-semibold mb-4">Select AI Model</h3>
+                <h3 className="text-lg font-semibold mb-2">Select AI Model for Prompt Generation</h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Choose the best AI model for your image prompt needs. Each prompt generator is optimized for different AI art platforms.
+                </p>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   {[
                     { id: 'general', name: 'General Images Prompt', desc: 'Natural language description of any image', selected: true },
@@ -791,7 +808,7 @@ export default function ImageToPromptPage() {
                   disabled={!selectedImage || isLoading}
                   className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-2 h-10"
                 >
-                  {isLoading ? 'Generating...' : 'Generate Prompt'}
+                  {isLoading ? 'Generating Image Prompt...' : 'Generate AI Prompt from Image'}
                 </Button>
               </div>
 
@@ -799,7 +816,7 @@ export default function ImageToPromptPage() {
               <div className="mt-8">
                 <div className="bg-gray-50 rounded-lg p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold">Generated prompt will appear here</h3>
+                    <h3 className="text-lg font-semibold">Generated AI Image Prompt</h3>
                     {prompt && (
                       <Button
                         onClick={handleCopyPrompt}
@@ -820,7 +837,8 @@ export default function ImageToPromptPage() {
                     />
                   ) : (
                     <div className="text-gray-400 text-center py-8">
-                      Upload an image and click "Generate Prompt" to see the result
+                      <p className="mb-2">Upload an image to generate AI prompts</p>
+                      <p className="text-sm">Your generated image prompt will appear here after processing</p>
                     </div>
                   )}
                 </div>
@@ -829,8 +847,7 @@ export default function ImageToPromptPage() {
               {/* Bottom Notice */}
               <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <p className="text-sm text-yellow-800">
-                  Want to analyze specific aspects like art style or describe people in the image? Try our{' '}
-                  <span className="text-blue-600 underline cursor-pointer">AI Describe Image</span> tool for detailed analysis.
+                  <strong>Pro Tip:</strong> For best results with our image to prompt generator, use high-quality images with clear subjects. Our AI prompt generator works best with well-lit photos and detailed artwork.
                 </p>
               </div>
             </CardContent>
@@ -839,11 +856,35 @@ export default function ImageToPromptPage() {
           {/* Bottom Section */}
           <div className="mt-12 text-center">
             <h2 className="text-3xl font-bold text-white mb-4">
-              Highly Accurate Image to Prompt Generation
+              Advanced Image to Prompt Generator Technology
             </h2>
-            <p className="text-purple-100 max-w-2xl mx-auto">
-              Convert original images to prompts with high-end AI to boost your prompt accuracy
+            <p className="text-purple-100 max-w-3xl mx-auto mb-6">
+              Our AI-powered image prompt generator uses cutting-edge computer vision to analyze your images and create detailed, accurate prompts. Perfect for artists, designers, and AI enthusiasts who need high-quality image prompts for their creative projects.
             </p>
+            
+            {/* Features Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 max-w-4xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-white mb-2">Instant Image Analysis</h3>
+                <p className="text-purple-200 text-sm">
+                  Upload any image and get detailed AI prompts in seconds. Our image to prompt technology works with photos, artwork, and digital images.
+                </p>
+              </div>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-white mb-2">Multiple AI Models</h3>
+                <p className="text-purple-200 text-sm">
+                  Choose from specialized prompt generators optimized for Midjourney, Stable Diffusion, FLUX, and other popular AI art platforms.
+                </p>
+              </div>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-white mb-2">Free & No Registration</h3>
+                <p className="text-purple-200 text-sm">
+                  Use our image prompt generator completely free. No account required, no limits on usage. Start creating better AI art prompts today.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

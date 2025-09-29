@@ -43,7 +43,7 @@ export function UserAuthForm({
     resolver: zodResolver(userAuthSchema),
   });
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false);
+  const [isGoogleLoading, setIsGoogleLoading] = React.useState<boolean>(false);
   const searchParams = useSearchParams();
 
   async function onSubmit(data: FormData) {
@@ -88,7 +88,8 @@ export function UserAuthForm({
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              disabled={isLoading || isGitHubLoading || disabled}
+              disabled={isLoading || isGoogleLoading || disabled}
+              className="h-12 px-4 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors"
               {...register("email")}
             />
             {errors?.email && (
@@ -97,7 +98,9 @@ export function UserAuthForm({
               </p>
             )}
           </div>
-          <button className={cn(buttonVariants())} disabled={isLoading}>
+          <button className={cn(
+            "w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          )} disabled={isLoading}>
             {isLoading && (
               <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
@@ -108,10 +111,10 @@ export function UserAuthForm({
       </form>
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t border-gray-200" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
+          <span className="bg-white px-4 text-gray-500 font-medium">
             {dict.signin_others}
             {/* Or continue with */}
           </span>
@@ -119,21 +122,27 @@ export function UserAuthForm({
       </div>
       <button
         type="button"
-        className={cn(buttonVariants({ variant: "outline" }))}
+        className={cn(
+          "w-full flex items-center justify-center px-4 py-3 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 shadow-sm hover:shadow-md"
+        )}
         onClick={() => {
-          setIsGitHubLoading(true);
-          signIn("github").catch((error) => {
-            console.error("GitHub signIn error:", error);
+          setIsGoogleLoading(true);
+          signIn("google", {
+            redirect: true,
+            callbackUrl: searchParams?.get("from") ?? `/${lang}/dashboard`,
+          }).catch((error) => {
+            console.error("Google signIn error:", error);
+            setIsGoogleLoading(false);
           });
         }}
-        disabled={isLoading || isGitHubLoading}
+        disabled={isLoading || isGoogleLoading}
       >
-        {isGitHubLoading ? (
-          <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+        {isGoogleLoading ? (
+          <Icons.Spinner className="mr-3 h-5 w-5 animate-spin text-gray-400" />
         ) : (
-          <Icons.GitHub className="mr-2 h-4 w-4" />
+          <Icons.Google className="mr-3 h-5 w-5" />
         )}{" "}
-        Github
+        使用 Google 继续
       </button>
     </div>
   );

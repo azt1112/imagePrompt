@@ -40,16 +40,14 @@ export default async function LoginPage({
       </Link>
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <Image
-            src="/images/avatars/saasfly-logo.svg"
-            className="mx-auto"
-            width="64"
-            height="64"
-            alt=""
-          />
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <div className="mx-auto mb-4">
+            <h1 className="text-3xl font-bold tracking-tight text-primary">
+              imagePrompt
+            </h1>
+          </div>
+          <h2 className="text-2xl font-semibold tracking-tight">
             {dict.login.welcome_back}
-          </h1>
+          </h2>
           <p className="text-sm text-muted-foreground">
             {dict.login.signin_title}
           </p>

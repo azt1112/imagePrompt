@@ -1,22 +1,33 @@
 import type { NextRequest } from "next/server";
 import {initTRPC, TRPCError} from "@trpc/server";
-import {auth, currentUser, getAuth} from "@clerk/nextjs/server";
+import { getToken } from "next-auth/jwt";
 import { ZodError } from "zod";
 
 import { transformer } from "./transformer";
 
 interface CreateContextOptions {
   req?: NextRequest;
-  auth?: any;
+  token?: any;
 }
-type AuthObject = ReturnType<typeof getAuth>;
-// see: https://clerk.com/docs/references/nextjs/trpc
+
+// Updated to use NextAuth JWT token
 export const createTRPCContext = async (opts: {
   headers: Headers;
-  auth: AuthObject;
+  req?: NextRequest;
+  auth?: any;
 }) => {
+  let userId: string | null = null;
+  
+  if (opts.req) {
+    const token = await getToken({ 
+      req: opts.req, 
+      secret: process.env.NEXTAUTH_SECRET 
+    });
+    userId = token?.sub || null;
+  }
+  
   return {
-    userId: opts.auth.userId,
+    userId,
     ...opts,
   };
 };

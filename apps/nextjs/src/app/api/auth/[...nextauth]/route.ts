@@ -2,8 +2,9 @@
 
 import NextAuth from "next-auth";
 
-import { authOptions } from "@saasfly/auth";
+// 暂时使用简化的配置来测试Google OAuth
+import { simpleAuthOptions } from "@saasfly/auth/simple-nextauth";
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(simpleAuthOptions);
 
 export { handler as GET, handler as POST };

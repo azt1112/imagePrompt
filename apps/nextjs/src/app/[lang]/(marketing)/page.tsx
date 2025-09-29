@@ -95,21 +95,21 @@ export default async function IndexPage({
               <br />
               with{" "}
               <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                Image Prompt
+                Image to Prompt Generator
               </span>
             </h1>
             
             <p className="mb-8 text-xl text-gray-600 md:text-2xl">
-              Inspire ideas. Enhance image prompts. Create masterpieces
+              Transform images into perfect AI prompts. Generate detailed image prompts for Midjourney, Stable Diffusion & more
             </p>
             
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
-                <Link href={`/${lang}/image-to-prompt`} className="flex items-center">
-                  Try it now !
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+                  <Link href={`/${lang}/image-to-prompt`} className="flex items-center">
+                    Try Free Image to Prompt Generator
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
               <Button variant="outline" size="lg">
                 Tutorials
               </Button>
@@ -132,11 +132,11 @@ export default async function IndexPage({
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 group-hover:bg-blue-200 transition-colors">
                       <Sparkles className="h-8 w-8 text-blue-600" />
                     </div>
-                    <CardTitle className="text-lg">AI Image to Prompt</CardTitle>
+                    <CardTitle className="text-lg">Image to Prompt Generator</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-center">
-                      Convert images into detailed, descriptive prompts for AI generation
+                      Convert any image into detailed AI prompts instantly. Perfect for creating prompts for AI art generation tools.
                     </CardDescription>
                   </CardContent>
                 </Card>
@@ -181,10 +181,13 @@ export default async function IndexPage({
             <p className="text-gray-600">
               You may be interested in:{" "}
               <a href="#" className="text-purple-600 hover:underline">
-                What is an Image Prompt?
+                What is an Image to Prompt Generator?
               </a>{" "}
               <a href="#" className="text-purple-600 hover:underline">
-                How to Write Effective Image Prompt?
+                How to Create Better Image Prompts?
+              </a>{" "}
+              <a href="#" className="text-purple-600 hover:underline">
+                Best Prompt Generator Tools
               </a>
             </p>
           </div>
@@ -194,10 +197,10 @@ export default async function IndexPage({
         <div className="container px-4 py-20 bg-gray-50 rounded-lg">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="mb-4 text-4xl font-bold text-gray-900">
-              AI Powered Image Prompt Tools
+              AI Image to Prompt Generator Suite
             </h2>
             <p className="mb-12 text-xl text-gray-600">
-              A complete suite of AI tools covering every aspect of your image creation journey
+              Complete image prompt generator tools for AI art creation, from image analysis to prompt optimization
             </p>
             
             <div className="grid gap-8 md:grid-cols-3">
@@ -205,9 +208,9 @@ export default async function IndexPage({
                 <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-100">
                   <Star className="h-10 w-10 text-purple-600" />
                 </div>
-                <h3 className="mb-2 text-xl font-semibold">Premium Quality</h3>
+                <h3 className="mb-2 text-xl font-semibold">Advanced Prompt Generator</h3>
                 <p className="text-gray-600">
-                  Professional-grade AI tools for creating stunning image prompts
+                  Professional-grade image to prompt generator for creating detailed AI prompts
                 </p>
               </div>
               
@@ -215,9 +218,9 @@ export default async function IndexPage({
                 <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-blue-100">
                   <Users className="h-10 w-10 text-blue-600" />
                 </div>
-                <h3 className="mb-2 text-xl font-semibold">Community Driven</h3>
+                <h3 className="mb-2 text-xl font-semibold">Image Prompt Community</h3>
                 <p className="text-gray-600">
-                  Join thousands of creators sharing and improving their prompts
+                  Join thousands of creators sharing image prompts and prompt generator techniques
                 </p>
               </div>
               
@@ -238,14 +241,14 @@ export default async function IndexPage({
         <div className="container px-4 py-20">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="mb-6 text-4xl font-bold text-gray-900">
-              Ready to Create Amazing AI Art?
+              Ready to Try Our Image to Prompt Generator?
             </h2>
             <p className="mb-8 text-xl text-gray-600">
-              Start your creative journey today with our powerful AI image prompt tools
+              Start creating perfect AI prompts from your images today with our free prompt generator
             </p>
             <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
             <Link href={`/${lang}/image-to-prompt`} className="flex items-center">
-              Get Started Now
+              Start Free Image to Prompt Generator
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
